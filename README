@@ -1,0 +1,45 @@
+Tunneler
+
+REMEMBER!
+
+Tunneler was not tested on heavy work load and can produce different kinds of bugs.
+Howerever it works pretty stable for one on one tunnels.
+Any bugs and suggestions are welcome.
+
+INFO
+
+Purpose of tunneler is to retransmit incoming tcp traffic from client to external server and from server back to client.
+It was written as a boost::asio usage example but tends to be useful in network applications testing.
+It allows you to pass through proxy servers, firewalls and other network obstacles. 
+
+USAGE
+
+tunneler -l <port_to_listen_to> -h <external_server_address_to_connect_to> -p <external_server_port>
+
+EXAMPLE
+
+A - user host
+B - external server host (direct connection to A from B is not available)
+C - intermediate server that can establish connections with A and B
+
+One needs to setup tunneler on host C like that: tunneler -l port -h B -p port
+And use C:port as B's fully functional clone.
+
+IMPLEMENTATION
+
+Tunneler was successfully built on Linux and Windows. Makefiles and projects included.
+
+Uses boost libraries heavily. To name most significant: asio, bind, shared_ptr
+
+One of the key features is that no additional threads created by application code for purposes of connections processing.
+(However some threads are created by asio (or its implementation) for internal purposes. Number of threads and creation algorithms were not studied)
+
+Application can potentially support any number of tunnel clients. Some research need to be performed to determine exact limits.
+
+PLAN
+
+- UDP support
+
+AUTHOR
+
+Vladimir Vinogradov (aka begray) [ b (at) stdcall.com ]
